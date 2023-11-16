@@ -13,9 +13,12 @@ export default function Products({ handleAdd }) {
     dispatch(fetchGetAllProduct());
   }, []);
   useEffect(() => {
-    const [item1, item2, item3] = category;
-    let list = [item1, item2, item3];
-    setCate(list);
+    //get 3 category are best seller
+    if (category) {
+      const [item1, item2, item3] = category;
+      let list = [item1, item2, item3];
+      setCate(list);
+    }
   }, [category]);
 
   return (

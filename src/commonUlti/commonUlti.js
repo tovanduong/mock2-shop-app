@@ -1,7 +1,7 @@
 
 export const handleGetItemHighRate = (productList, number) => {
-    if (number <= 0 || number > productList.length) {
-        return [];
+    if (!number || number > productList.length) {
+        return productList;
     }
 
     const newlist = productList.filter((item) => {

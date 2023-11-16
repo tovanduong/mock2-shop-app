@@ -1,31 +1,19 @@
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ListIcon from "@mui/icons-material/List";
 import { Box, Container, List, ListItem, ListItemButton } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import Header from "../../../../components/common/header/Header";
 import { fetchGetAllCategory, fetchGetAllProduct } from "../userSlice";
 import Products from "./component/product/index";
-// import Carousel from "./component/carousel/Carousel";
-// import VerifyEmail from "./component/VerifyEmail";
 import "./home.scss";
-// import Benefit from "../../components/Benefit";
 import { Link } from "react-router-dom";
 import Carousel from "./component/carousel/Carousel";
 
-export default function Home({}) {
-  // const [open, setOpen] = useState(false);
+export default function Home() {
   const dispatch = useDispatch();
   const { category } = useSelector((state) => state.user);
   const { product } = useSelector((state) => state.user);
-  console.log(category);
-  // const handleClose = () => setOpen(false);
-  // useEffect(() => {
-  //   if (user && user.isEmailVerified === false) {
-  //     dispatch(fetchSendVerifyEmail({ deviceId: deviceId }));
-  //     setOpen(true);
-  //   }
-  // }, [user]);
+
 
   useEffect(() => {
     dispatch(fetchGetAllProduct());
@@ -84,20 +72,7 @@ export default function Home({}) {
         </Box>
         <Box my={2}>{/* <Benefit /> */}</Box>
         <Products handleAdd={() => {}} category={category} />
-        {/* <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box className="modal-box-auth">
-            <VerifyEmail onClose={handleClose} />
-            <Box className="auth-layout">
-              <img src={Bag} alt="VectorBag" />
-              <img src={Logo} alt="ShopApp" />
-            </Box>
-          </Box>
-        </Modal> */}
+
       </Container>
     </Box>
   );

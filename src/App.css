@@ -1,0 +1,11 @@
+.breadCrum {
+    padding: 14px 0 17px 0;
+    margin-bottom: 19px;
+}
+
+.breadCrum-content {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    color: #595959;
+}

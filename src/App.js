@@ -7,12 +7,15 @@ import './App.css';
 import './App.scss';
 import Header from './components/common/header/Header';
 import Home from './features/user/Home';
+import ProductByCategory from './features/user/Home/component/productList/ProductByCategory';
+import ProductInfo from './features/user/ProductInfo/ProductInfo';
 // const User = React.lazy(() => import('./features/user'));
 // const Admin = React.lazy(() => import('./features/admin'));
 // const Auth = React.lazy(() => import('./features/auth'));
 // const NotFound = React.lazy(() => import('./components/common/NotFound'));
 
 function App() {
+
   return (
     <>
       <Suspense fallback={<div>Loading ...</div>}>
@@ -21,7 +24,17 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
+          </Routes>       
+             <Routes>
+            <Route path="/:categoryName" element={<ProductByCategory />} />
           </Routes>
+          <Routes>
+            <Route path="/product/:productID" element={<ProductInfo handleAdd={()=>{}} handleRemove={()=>{}} />} />
+          </Routes>
+          {/* <Routes
+          path="/product/:productID"
+          element={<ProductInfo handleAdd={()=>{}} handleRemove={()=>{}} />}
+        /> */}
         </BrowserRouter>
         {/* </ThemeProvider> */}
       </Suspense>

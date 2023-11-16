@@ -36,10 +36,10 @@ const Carousel = ({ propsProduct, rateProps }) => {
           })}
       </Swiper>
       <Box className="list-carousel">
-        {propsProduct &&
-          propsProduct.map((item) => {
+        {rateProps() &&
+          rateProps().map((item) => {
             return (
-              <Box className="carousel-item" key={item.productId}>
+              <Box className="carousel-item" key={item?.productId}>
                 <img src={CarouselImage} alt="" height={224} />
               </Box>
             );
