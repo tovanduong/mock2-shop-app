@@ -5,11 +5,11 @@ import Rate from "../rate/Rate";
 import "./ItemCard.scss";
 import AddCart from "../../../assets/images/icon/AddCart.png";
 
-const ItemCard = ({ name, id, rating, images, price, handleAdd }) => {
+const ItemCard = ({ name, productId, rating, images, price, handleAdd }) => {
   return (
     <Box className="ItemCard">
       <Box className="ItemCard-Image">
-        <RouterLink to={`/product/${id}`}>
+        <RouterLink to={`/product/${productId}`}>
           <img src={images} alt={name} />
         </RouterLink>
       </Box>
@@ -17,12 +17,12 @@ const ItemCard = ({ name, id, rating, images, price, handleAdd }) => {
         <Box className="ItemCard--Descriptions-name">
           <RouterLink
             style={{ textDecoration: "none", color: "#000" }}
-            to={`/product/${id}`}
+            to={`/product/${productId}`}
           >
             {name}
           </RouterLink>
         </Box>
-        <Box className="ItemCard--Descriptions-id">ID: {id}</Box>
+        <Box className="ItemCard--Descriptions-id">ID: {productId}</Box>
         <Box className="ItemCard--Descriptions-group">
           <Box className="ItemCard-rate">
             <Rate propsRate={rating} />

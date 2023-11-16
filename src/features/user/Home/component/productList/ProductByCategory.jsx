@@ -1,4 +1,4 @@
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import {
   Box,
   Breadcrumbs,
@@ -6,17 +6,17 @@ import {
   Grid,
   Stack,
   Typography,
-} from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { getProductByCategory } from '../../../../../api/userAPI';
-import ItemCard from '../../../../../components/common/itemCard/ItemCard';
-import '../../home.scss';
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { getProductByCategory } from "../../../../../api/userAPI";
+import ItemCard from "../../../../../components/common/itemCard/ItemCard";
+import "../../home.scss";
 
 const ProductByCategory = () => {
   const [listItem, setListItem] = useState([]);
   const location = useLocation();
-  const item = location.pathname.slice(1).replace('%20', ' ');
+  const item = location.pathname.split("/").slice(-1)[0];
   useEffect(() => {
     getProductByCategory({ item }).then((data) => setListItem(data));
     // dispatch(fetchGetAllProduct());
@@ -26,8 +26,7 @@ const ProductByCategory = () => {
   return (
     <Box className="section-box">
       <Container>
-        <Box className="Home__GroupCate">
-        </Box>
+        <Box className="Home__GroupCate"></Box>
         <Box mb={3} mt={3}>
           <Box className="breadCrum">
             <Stack spacing={2}>
@@ -50,7 +49,7 @@ const ProductByCategory = () => {
 
           <Grid
             container
-            spacing={{ xs: 1, md: 2, xl: '10px' }}
+            spacing={{ xs: 1, md: 2, xl: "10px" }}
             columns={{ xs: 12, sm: 12, md: 12, xl: 12 }}
           >
             {listItem.length &&

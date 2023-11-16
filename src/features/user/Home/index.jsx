@@ -14,7 +14,6 @@ export default function Home() {
   const { category } = useSelector((state) => state.user);
   const { product } = useSelector((state) => state.user);
 
-
   useEffect(() => {
     dispatch(fetchGetAllProduct());
     dispatch(fetchGetAllCategory());
@@ -39,7 +38,6 @@ export default function Home() {
 
   return (
     <Box>
-      {/* <Header /> */}
       <Container className="user-container">
         <Box className="Home__GroupCate">
           <Box width="20%" bgcolor="#3D464D">
@@ -72,7 +70,6 @@ export default function Home() {
         </Box>
         <Box my={2}>{/* <Benefit /> */}</Box>
         <Products handleAdd={() => {}} category={category} />
-
       </Container>
     </Box>
   );

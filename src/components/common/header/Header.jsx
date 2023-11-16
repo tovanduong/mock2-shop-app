@@ -16,7 +16,6 @@ import "./header.scss";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
-  // const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorPopUp, setAnchorPopUp] = useState(null);
   const openMenu = Boolean(anchorEl);
@@ -110,9 +109,6 @@ const Header = () => {
               className="Header__mainbar--item"
               onClick={!isLogin ? handleOpen : handlePopup}
               id="fade-button"
-              // aria-controls={open ? "fade-menu" : undefined}
-              // aria-haspopup="true"
-              // aria-expanded={open ? "true" : undefined}
               onMouseOver={isLogin ? handleHoverMenu : null}
             >
               {isLogin ? (
