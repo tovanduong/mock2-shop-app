@@ -10,6 +10,7 @@ const initialState = {
   loading: false,
   product: [],
   category: [],
+  cartList: []
 };
 
 export const fetchGetAllProduct = createAsyncThunk('users/getAllProduct', async () => {
@@ -29,6 +30,12 @@ export const UserSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
+    addCartList: (state, action) => {
+      state.cartList.push(action.payload)
+    },
+    updateCartList: (state, action) => {
+      state.cartList = action.payload
+    },
   },
 
   extraReducers: {
@@ -50,6 +57,6 @@ export const UserSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setFilter, searchProduct, countIncrease, countRemove } = UserSlice.actions;
+export const { addCartList, updateCartList } = UserSlice.actions;
 
 export default UserSlice.reducer;

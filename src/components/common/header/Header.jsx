@@ -5,7 +5,7 @@ import { Box, Button, Modal, Typography } from "@mui/material";
 import Fade from "@mui/material/Fade";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import ShopApp from "../../../assets/images/ShopApp.png";
 import Cart from "../../../assets/images/icon/Cart.png";
@@ -13,8 +13,13 @@ import UserIcon from "../../../assets/images/icon/MaskUser.png";
 import Auth from "../../../features/auth/index";
 import SearchBarUserForm from "../search/SearchBarUserForm";
 import "./header.scss";
+import { useSelector } from "react-redux";
+import { set } from "react-hook-form";
 
 const Header = () => {
+  const { cartList } = useSelector((state) => state.user);
+  let CartRef = useRef();
+  const [idCart, setIdCart] = useState("");
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorPopUp, setAnchorPopUp] = useState(null);
@@ -35,8 +40,15 @@ const Header = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [menu, setMenu] = useState(false);
-  const user = JSON.parse(localStorage.getItem("user"));
-  const isLogin = Boolean(localStorage.getItem("access_token"));
+  // const user = JSON.parse(localStorage.getItem("user"));
+  // const isLogin = Boolean(localStorage.getItem("access_token"));
+  useEffect(() => {
+    const quanityItem = cartList.reduce((acc, curr) => acc + curr.quanity, 0);
+    if (!quanityItem) return;
+    setIdCart("CartHeader");
+    CartRef.current.setAttribute("value", quanityItem);
+  }, [cartList]);
+  const isLogin = true;
   let screenWidth = window.screen.width;
   const HandleClick = () => {
     setMenu(!menu);
@@ -99,12 +111,15 @@ const Header = () => {
             </Box>
             <Box
               className="Header__mainbar--item"
+              ref={CartRef}
+              id={idCart}
               position="relative"
               onClick={!isLogin ? handleOpen : handlePopup}
               onMouseOver={isLogin ? handleHoverPopUp : null}
             >
               <img src={Cart} alt="Cart" />
             </Box>
+
             <Box
               className="Header__mainbar--item"
               onClick={!isLogin ? handleOpen : handlePopup}
@@ -114,7 +129,8 @@ const Header = () => {
               {isLogin ? (
                 (
                   <img
-                    src={user?.avatar}
+                    // src={user?.avatar}
+                    src="https://i1-vnexpress.vnecdn.net/2021/03/02/103650164-731814290963011-1374-5806-7233-1614677857.jpg?w=0&h=0&q=100&dpr=2&fit=crop&s=9yXpYDxZfyUhN1j1WGnnNg"
                     style={{
                       width: "50px",
                       height: "50px",

@@ -73,6 +73,23 @@
   }
 }
 
+#CartHeader {
+  position: relative;
+  &::before {
+    position: absolute;
+    top: -25%;
+    left: 55%;
+    content: attr(value);
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #fff;
+  }
+}
+
 .header__mainbar--search {
   position: relative;
   display: flex;

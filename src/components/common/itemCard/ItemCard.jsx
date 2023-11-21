@@ -1,11 +1,14 @@
 import { Box, Link } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-import React from "react";
+import React, { useContext } from "react";
 import Rate from "../rate/Rate";
 import "./ItemCard.scss";
 import AddCart from "../../../assets/images/icon/AddCart.png";
+import { UserContext } from "../../../App";
 
-const ItemCard = ({ name, productId, rating, images, price, handleAdd }) => {
+const ItemCard = ({ name, productId, rating, images, price }) => {
+  const { handleAdd } = useContext(UserContext);
+
   return (
     <Box className="ItemCard">
       <Box className="ItemCard-Image">
@@ -32,7 +35,7 @@ const ItemCard = ({ name, productId, rating, images, price, handleAdd }) => {
       </Box>
       <Box className="ItemCard-PriceCard">
         <Box className="ItemCard-price"> $ {price}</Box>
-        <Box className="ItemCard-cart" onClick={() => handleAdd()}>
+        <Box className="ItemCard-cart" onClick={() => handleAdd(productId)}>
           <img src={AddCart} alt="cart" />
         </Box>
       </Box>

@@ -6,29 +6,29 @@ import { getProductByCategory } from "../../../../../api/userAPI";
 import { Link } from "react-router-dom";
 import { handleGetItemHighRate } from "../../../../../commonUlti/commonUlti";
 
-const ProductList = ({ handleAdd, product, item }) => {
+const ProductList = ({ item }) => {
   const [listItem, setListItem] = useState([]);
   const [alllistItem, setAllListItem] = useState([]);
   useEffect(() => {
     if (item) {
       getProductByCategory({ item: item }).then((data) => {
         const newList = handleGetItemHighRate(data[0]?.Product, 4);
-        setAllListItem(data[0]?.Product)
+        setAllListItem(data[0]?.Product);
         setListItem(newList);
       });
     }
   }, [item]);
-  console.log(listItem);
-
   return (
     <Box>
       <Box className="category-title">
         <Typography variant="h6" className="category-name">
           {item}
         </Typography>
-        {alllistItem.length > 4 &&<Box className="category-showmore">
-          <Link to={`/${item}`}>Show more...</Link>
-        </Box>}
+        {alllistItem.length > 4 && (
+          <Box className="category-showmore">
+            <Link to={`/${item}`}>Show more...</Link>
+          </Box>
+        )}
       </Box>
       <Grid
         container
@@ -39,7 +39,7 @@ const ProductList = ({ handleAdd, product, item }) => {
           listItem.map((item) => {
             return (
               <Grid item xs={12} sm={6} md={4} lg={3} key={item?.id}>
-                <ItemCard {...item} handleAdd={() => handleAdd(item)} />
+                <ItemCard {...item} />
               </Grid>
             );
           })}

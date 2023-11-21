@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchGetAllProduct } from "../../../userSlice";
 import ProductList from "../productList/ProductList";
 
-export default function Products({ handleAdd }) {
+export default function Products() {
   const dispatch = useDispatch();
   const [cate, setCate] = useState();
   const { product } = useSelector((state) => state.user);
@@ -27,11 +27,7 @@ export default function Products({ handleAdd }) {
         cate.map((ele, index) => {
           return (
             <Box key={index}>
-              <ProductList
-                handleAdd={handleAdd}
-                product={product}
-                item={ele?.name}
-              />
+              <ProductList product={product} item={ele?.name} />
             </Box>
           );
         })}
