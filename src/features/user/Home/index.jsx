@@ -51,7 +51,10 @@ export default function Home() {
                   return (
                     <ListItem disablePadding key={index}>
                       <ListItemButton className="Home__Cate-item">
-                        <Link className="Home__Cate-link" to={`/${item.name}`}>
+                        <Link
+                          className="Home__Cate-link"
+                          to={`/category/${item.name}`}
+                        >
                           {item.name}
                         </Link>
                         <ArrowForwardIosIcon sx={{ color: "#FFF" }} />

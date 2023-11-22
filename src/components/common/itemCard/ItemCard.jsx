@@ -6,7 +6,8 @@ import "./ItemCard.scss";
 import AddCart from "../../../assets/images/icon/AddCart.png";
 import { UserContext } from "../../../App";
 
-const ItemCard = ({ name, productId, rating, images, price }) => {
+const ItemCard = (item) => {
+  const { name, productId, rating, images, price } = item;
   const { handleAdd } = useContext(UserContext);
 
   return (
@@ -35,7 +36,7 @@ const ItemCard = ({ name, productId, rating, images, price }) => {
       </Box>
       <Box className="ItemCard-PriceCard">
         <Box className="ItemCard-price"> $ {price}</Box>
-        <Box className="ItemCard-cart" onClick={() => handleAdd(productId)}>
+        <Box className="ItemCard-cart" onClick={() => handleAdd(item)}>
           <img src={AddCart} alt="cart" />
         </Box>
       </Box>

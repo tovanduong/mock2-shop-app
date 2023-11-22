@@ -3,4 +3,4 @@ export * from './LabelInputField';
 // export * from './ImportFileField';
 // export * from './SelectField';
 // export * from './MultipleSelectedField';
-// export * from './RadioCheckBox';
+export * from './RadioCheckBox';

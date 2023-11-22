@@ -6,18 +6,22 @@ import Fade from "@mui/material/Fade";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import React, { useEffect, useRef, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import ShopApp from "../../../assets/images/ShopApp.png";
 import Cart from "../../../assets/images/icon/Cart.png";
 import UserIcon from "../../../assets/images/icon/MaskUser.png";
 import Auth from "../../../features/auth/index";
+import CartPopup from "../cartPopup/CartPopup";
 import SearchBarUserForm from "../search/SearchBarUserForm";
 import "./header.scss";
-import { useSelector } from "react-redux";
-import { set } from "react-hook-form";
+import { fetchLogout } from "../../../features/auth/authSlice";
 
 const Header = () => {
-  const { cartList } = useSelector((state) => state.user);
+  const { login } = useSelector((state) => state.auth);
+  const cartList = JSON.parse(localStorage.getItem("cartUser"));
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   let CartRef = useRef();
   const [idCart, setIdCart] = useState("");
   const [open, setOpen] = useState(false);
@@ -43,17 +47,31 @@ const Header = () => {
   // const user = JSON.parse(localStorage.getItem("user"));
   // const isLogin = Boolean(localStorage.getItem("access_token"));
   useEffect(() => {
-    const quanityItem = cartList.reduce((acc, curr) => acc + curr.quanity, 0);
-    if (!quanityItem) return;
-    setIdCart("CartHeader");
-    CartRef.current.setAttribute("value", quanityItem);
+    if (cartList) {
+      const quanityItem = cartList.reduce((acc, curr) => acc + curr.quanity, 0);
+      if (quanityItem) {
+        setIdCart("CartHeader");
+        CartRef.current.setAttribute("value", quanityItem);
+      } else {
+        setIdCart("");
+        CartRef.current.setAttribute("value", undefined);
+      }
+    } else {
+      setIdCart("");
+      CartRef.current.setAttribute("value", undefined);
+    }
   }, [cartList]);
-  const isLogin = true;
+  const isLogin = Boolean(localStorage.getItem("user"));
+  console.log("isLogin", isLogin);
   let screenWidth = window.screen.width;
   const HandleClick = () => {
     setMenu(!menu);
   };
-
+  useEffect(() => {
+    if (login && isLogin) {
+      setOpen(false);
+    }
+  }, [login, isLogin]);
   const handlePopup = () => {
     //code Popup here
   };
@@ -63,7 +81,12 @@ const Header = () => {
   const handleSubmit = (value) => {
     console.log(value);
   };
-  const handleLogOut = () => {};
+  const handleLogOut = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("cartUser");
+    dispatch(fetchLogout(false));
+    navigate("/");
+  };
 
   return (
     <Box>
@@ -211,7 +234,7 @@ const Header = () => {
           TransitionComponent={Fade}
           className="CartPopup"
         >
-          <MenuItem>{/* <CartPopup /> */}</MenuItem>
+          <MenuItem>{<CartPopup />}</MenuItem>
         </Menu>
       </Box>
     </Box>

@@ -1,14 +1,11 @@
 import { Box, Button, Typography } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../../../App";
 
-const ItemCart = ({
-  item,
-  total,
-  price,
-  handleAdd,
-  handleRemove,
-  handleClose,
-}) => {
+const ItemCart = ({ item, total, price, handleRemove, handleClose }) => {
+  const { handleAdd, handleDelete, handleRemoveProduct } =
+    useContext(UserContext);
+
   const getTotalProduct = (item) => {
     const total = item.quanity * item.price;
     return total;
@@ -35,7 +32,7 @@ const ItemCart = ({
           <Box>
             <Button
               disabled={total === 0 ? true : false}
-              onClick={() => handleRemove(item)}
+              onClick={() => handleDelete(item)}
               className="CartItem--quanity-btn"
             >
               -
@@ -51,7 +48,10 @@ const ItemCart = ({
         </Box>
         <Box gridColumn="span 2" className="CartItem" position="relative">
           <Box>{getTotalProduct(item)} $</Box>
-          <span className="CardItem-Close" onClick={() => handleClose(item)}>
+          <span
+            className="CardItem-Close"
+            onClick={() => handleRemoveProduct(item)}
+          >
             X
           </span>
         </Box>

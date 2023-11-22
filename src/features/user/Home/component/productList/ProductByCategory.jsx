@@ -16,11 +16,9 @@ import "../../home.scss";
 const ProductByCategory = () => {
   const [listItem, setListItem] = useState([]);
   const location = useLocation();
-  const item = location.pathname.split("/").slice(-1)[0];
+  const item = decodeURI(location.pathname.split("/").slice(-1)[0]);
   useEffect(() => {
     getProductByCategory({ item }).then((data) => setListItem(data));
-    // dispatch(fetchGetAllProduct());
-    // dispatch(fetchGetAllCategory());
   }, [item]);
 
   return (

@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import Tab from "@mui/material/Tab";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import productApi from "../../../api/productApi";
 import arrow_left from "../../../assets/images/arrow_left.svg";
@@ -31,6 +31,7 @@ import Reviews from "../components/Reviews";
 import Specification from "../components/Specification";
 import { getProductByCategory } from "../../../api/userAPI";
 import { handleGetItemHighRate } from "../../../commonUlti/commonUlti";
+import { UserContext } from "../../../App";
 
 const shoes_small = [
   shoe_small_1,
@@ -40,17 +41,18 @@ const shoes_small = [
   shoe_small_5,
 ];
 
-const ProductInfo = ({ handleAdd, handleRemove }) => {
+const ProductInfo = () => {
   const [value, setValue] = useState("description");
   const [productInfo, setProductInfo] = useState(null);
   const [listProductByCategory, setListProductByCategory] = useState(null);
   const [reviews, setReviews] = useState(null);
+  const { handleAdd } = useContext(UserContext);
+  const { productID } = useParams();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const { productID } = useParams();
   useEffect(() => {
     if (!productID) return;
     (async () => {
@@ -73,6 +75,27 @@ const ProductInfo = ({ handleAdd, handleRemove }) => {
     }
   }, [productInfo]);
 
+  const handlesetQuanityItem = (action) => {
+    let itemIncreamented = { ...productInfo };
+    if (itemIncreamented.quanity === 0 && action === "remove") return;
+    switch (action) {
+      case "add":
+        itemIncreamented.quanity =
+          itemIncreamented.quanity !== undefined
+            ? itemIncreamented.quanity + 1
+            : 1;
+        break;
+      case "remove":
+        itemIncreamented.quanity =
+          itemIncreamented.quanity !== undefined
+            ? itemIncreamented.quanity - 1
+            : 0;
+        break;
+      default:
+        break;
+    }
+    setProductInfo(itemIncreamented);
+  };
   return (
     <Container className="productInforWrapper section-box">
       {productInfo && (
@@ -173,14 +196,16 @@ const ProductInfo = ({ handleAdd, handleRemove }) => {
                   <div style={{ marginRight: "20px" }}>
                     <Box className="CartItem-detail">
                       <Button
-                        onClick={() => handleRemove(productInfo)}
+                        onClick={() => handlesetQuanityItem("remove")}
                         className="CartItem-detailquanity-btn"
                       >
                         -
                       </Button>
-                      <Typography>0</Typography>
+                      <Typography>
+                        {productInfo?.quanity ? productInfo?.quanity : 0}
+                      </Typography>
                       <Button
-                        onClick={() => handleAdd(productInfo)}
+                        onClick={() => handlesetQuanityItem("add")}
                         className="CartItem-detailquanity-btn"
                       >
                         +
@@ -190,7 +215,7 @@ const ProductInfo = ({ handleAdd, handleRemove }) => {
                   <Button
                     variant="contained"
                     size="large"
-                    onClick={() => handleAdd(productInfo)}
+                    onClick={() => handleAdd(productInfo, productInfo.quanity)}
                     startIcon={<AddShoppingCartIcon />}
                   >
                     Add to cart
@@ -265,7 +290,7 @@ const ProductInfo = ({ handleAdd, handleRemove }) => {
                   listProductByCategory.map((item) => {
                     return (
                       <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
-                        <ItemCard {...item} handleAdd={() => handleAdd(item)} />
+                        <ItemCard {...item} handleAdd={() => {}} />
                       </Grid>
                     );
                   })}

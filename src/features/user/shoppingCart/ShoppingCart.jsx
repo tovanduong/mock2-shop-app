@@ -4,32 +4,13 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cart from "../../../components/common/ItemCart/Cart";
 import CouponCodeForm from "../../../components/common/couponCode/CouponCodeForm";
 import "./shoppingCart.scss";
 
 const ShoppingCart = ({ handleAdd, handleRemove, handleClose }) => {
-  const itemInCart = [
-    {
-      name: "KIM",
-      id: 4,
-      price: 50,
-      image:
-        "https://macstores.vn/wp-content/uploads/2023/04/thinkpad_x1_carbon_gen_11_1.png",
-      quanity: 10,
-    },
-    {
-      name: "XIAOMI",
-      id: 10,
-      price: 100,
-      image:
-        "https://macstores.vn/wp-content/uploads/2023/04/thinkpad_x1_carbon_gen_11_1.png",
-      quanity: 2,
-    },
-  ];
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const cartList = JSON.parse(localStorage.getItem("cartUser"));
 
   var shipping = 20;
   const initialValue = {
@@ -41,7 +22,7 @@ const ShoppingCart = ({ handleAdd, handleRemove, handleClose }) => {
   };
 
   const getSubTotal = () => {
-    const total = itemInCart?.reduce(
+    const total = cartList?.reduce(
       (price, item) => price + item.quanity * item.price,
       0
     );
@@ -51,8 +32,11 @@ const ShoppingCart = ({ handleAdd, handleRemove, handleClose }) => {
   // useEffect(() => {
   //   if (getId) dispatch(fetchGetCartById({ id: getId?.cart.id }));
   // }, [isUpdate]);
+  const navigate = useNavigate();
 
-  const handleCheckOut = () => {};
+  const handleCheckOut = () => {
+    navigate("/checkout");
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -86,7 +70,7 @@ const ShoppingCart = ({ handleAdd, handleRemove, handleClose }) => {
         </Typography>
 
         <Cart
-          cartItems={itemInCart}
+          cartItems={cartList}
           handleAdd={handleAdd}
           handleRemove={handleRemove}
           getSubTotal={getSubTotal}

@@ -3,13 +3,7 @@ import React from "react";
 import ItemCart from "./ItemCart";
 import "./ItemCart.scss";
 
-function Cart({
-  cartItems,
-  handleAdd,
-  handleRemove,
-  handleClose,
-  getSubTotal,
-}) {
+function Cart({ cartItems, handleClose, getSubTotal }) {
   return (
     <Box mb="44px">
       <Box
@@ -38,8 +32,6 @@ function Cart({
           <Box key={index}>
             <ItemCart
               {...item}
-              handleAdd={handleAdd}
-              handleRemove={handleRemove}
               item={item}
               handleClose={handleClose}
               getSubTotal={getSubTotal}

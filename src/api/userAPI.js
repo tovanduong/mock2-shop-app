@@ -46,3 +46,24 @@ export function getCate() {
     });
 }
 
+export function postOrder(payload) {
+  return axiosClient
+    .post("/order", payload)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export function getOrder() {
+  return axiosClient
+    .get("/order?_limit=5")
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}

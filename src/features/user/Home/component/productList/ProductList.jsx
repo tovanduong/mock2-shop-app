@@ -26,7 +26,7 @@ const ProductList = ({ item }) => {
         </Typography>
         {alllistItem.length > 4 && (
           <Box className="category-showmore">
-            <Link to={`/${item}`}>Show more...</Link>
+            <Link to={`/category/${item}`}>Show more...</Link>
           </Box>
         )}
       </Box>

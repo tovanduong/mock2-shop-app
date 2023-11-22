@@ -27,8 +27,9 @@ const Login = ({ parentCallback, onClose }) => {
   };
 
   const handleLoginSubmit = (value) => {
-    // const { email, password } = value;
+    const { email, password } = value;
     console.log(value);
+    localStorage.setItem("user", JSON.stringify({ email, password }));
     dispatch(fetchLogin({ username: "kminchelle", password: "0lelplR" }));
     postLogin({ username: "kminchelle", password: "0lelplR" });
   };
